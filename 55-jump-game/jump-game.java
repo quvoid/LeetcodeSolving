@@ -12,7 +12,7 @@ class Solution {
                 return true;
             }
         }
+        return true;
         
-        return maxReach >= lastIndex;
     }
 }
