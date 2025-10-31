@@ -1,21 +1,32 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs.length == 0){
+            return new ArrayList<>();
+        }
 
-        Map<String, List<String>> worded = new HashMap<>();
+        Map<String , List> mp = new HashMap<>();
 
-        
-        for(String s : strs){
-            char[] chars =  s.toCharArray();    //convert the string to character
-            Arrays.sort(chars);                            //sort the character
-            String sorted = new String(chars);  
+        int[] count = new int[26];
 
-            if(!worded.containsKey(sorted)){        //first aet comes , it is checked if aet is in the hashmap , if not it is added aet as key then eat which is the sort of aet is added , then tea enters , which is sorted to aet , aet is checked , it is already present so tea is directly added at line 16 through add(s)
-                worded.put(sorted, new ArrayList<>());
+        for(String s:strs){
+            Arrays.fill(count,0);
+            for(char c:s.toCharArray()){
+                count[c - 'a']++;
             }
 
-            worded.get(sorted).add(s);
+            StringBuilder sb = new StringBuilder("");
+            for(int i = 0; i < 26;i++){
+                sb.append("#");
+                sb.append(count[i]);
+            }
+            String key = sb.toString();
+            if(!mp.containsKey(key)){
+                mp.put(key,new ArrayList());
+            }
+            mp.get(key).add(s);
 
         }
-        return new ArrayList<>(worded.values());        
+        return new ArrayList(mp.values());
+        
     }
 }
